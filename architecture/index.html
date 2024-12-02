@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Ordering System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .order-form {
+            width: 60%;
+        }
+        .plant-image {
+            width: 40%;
+            text-align: center;
+        }
+        .plant-image img {
+            max-width: 50%; /* Adjust the width percentage to make it smaller */
+            height: 40%;   /* Maintain aspect ratio */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .plant-name {
+            margin-top: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .video-container {
+            margin-top: 20px;
+        }
+        iframe {
+            width: 100%;
+            height: 315px;
+        }
+    </style>
+    <script>
+        const plantImages = {
+            fern: "https://www.wyseguide.com/wp-content/uploads/2022/01/Tips-to-Make-Indoor-Ferns-Thrive-11-683x1024.jpg",
+            succulent: "data:image/jpeg;base64,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",
+            bonsai: "https://loako.com/cdn/shop/articles/Juniper_Bonsai_Tree_1024x.png?v=1711047591"
+        };
+
+        const plantNames = {
+            fern: "Fern",
+            succulent: "Succulent",
+            bonsai: "Bonsai"
+        };
+
+        function updatePlantDetails() {
+            const selectedPlant = document.getElementById('plant').value;
+            const plantImage = document.getElementById('plant-image');
+            const plantName = document.getElementById('plant-name');
+
+            // Update image and name dynamically
+            plantImage.src = plantImages[selectedPlant];
+            plantName.textContent = plantNames[selectedPlant];
+        }
+
+        const API_KEY = 'pk_test_tkDeF62P4CwhCsTtfg3d583K'; // Replace with your actual API key
+        const VIDEO_ID = 'YOUR_VIDEO_ID'; // Replace with your specific YouTube video ID
+
+        async function loadYouTubeVideo() {
+            const videoUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${VIDEO_ID}&key=${API_KEY}`;
+            try {
+                const response = await fetch(videoUrl);
+                const data = await response.json();
+                const videoTitle = data.items[0]?.snippet?.title || "Video";
+                document.getElementById('video-title').textContent = videoTitle;
+                document.getElementById('youtube-iframe').src = `https://www.youtube.com/embed/${VIDEO_ID}`;
+            } catch (error) {
+                console.error('Failed to load video:', error);
+            }
+        }
+
+        // Initialize the plant details and video on page load
+        window.onload = () => {
+            updatePlantDetails();
+            loadYouTubeVideo();
+        };
+    </script>
+</head>
+<body>
+    <h1>Welcome to Our Plant Ordering System</h1>
+    <p>Choose your favorite plants and place an order:</p>
+
+    <div class="container">
+        <!-- Form Section -->
+        <div class="order-form">
+            <form action="controller.php" method="POST">
+                <label for="plant">Select a Plant:</label>
+                <select id="plant" name="plant" onchange="updatePlantDetails()" required>
+                    <option value="fern">Fern - PHP 300</option>
+                    <option value="succulent">Succulent - PHP 500</option>
+                    <option value="bonsai">Bonsai - PHP 1,500</option>
+                </select>
+                <br><br>
+                <label for="quantity">Quantity:</label>
+                <input type="number" id="quantity" name="quantity" min="1" required>
+                <br><br>
+                <button type="submit" style="padding: 10px 20px;">Order Now</button>
+            </form>
+        </div>
+
+        <!-- Plant Image Section -->
+        <div class="plant-image">
+            <h3>Featured Plant</h3>
+            <!-- Plant Image -->
+            <img id="plant-image" src="" alt="Plant Image">
+            <!-- Plant Name -->
+            <div id="plant-name" class="plant-name"></div>
+        </div>
+    </div>
+
+    <div class="video-container">
+        <h2 id="video-title">Loading video...</h2>
+        <iframe id="youtube-iframe" frameborder="0" allowfullscreen></iframe>
+    </div>
+</body>
+</html>
